@@ -1,17 +1,23 @@
-#include<bits/stdc++.h>
+#include <iostream>
+
+#define i64 long long 
+#define endl '\n'
+#define qwq puts("fzy qwq ~");
+
 using namespace std;
-typedef long double ld;
-const ld eps = 1e-19;
-ld k;
-inline ld lfabs(ld x) {return x > 0 ? x : - x;}
-inline void file()
+
+inline void val(int x)
 {
-	freopen("divide.in", "r", stdin);
-	freopen("divide.out", "w", stdout);
+	cerr << x % 2023 << endl;
 }
+
 int main()
 {
-	// file();
-	cout << abs(-0x3f3f3f3f3f3f) << endl;
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	cin >> n >> m;
+	cout << n + m << endl;
+	val(n + m);
 	return 0;
 }

@@ -7,6 +7,8 @@
 
 using namespace std;
 
+#define file(prob) freopen(prob".in", "r", stdin); freopen(prob".out", "w", stdout);
+
 const int N = 5e5 + 10;
 
 int n, sum[2], a[N];
@@ -34,6 +36,11 @@ inline void solve()
 	
 	for (int i = 0; i < n; ++i)
 	{
+		if (a[prev(i)] + a[next(i)] < a[i])
+			flg = 0;
+	}
+	for (int i = 0; i < n; ++i)
+	{
 		if (a[prev(i)] + a[next(i)] == a[i])
 			a[prev(i)] = a[next(i)] = a[i] = 0;
 	}
@@ -47,8 +54,7 @@ inline void solve()
 
 signed main()
 {
-	freopen("B.in", "r", stdin);
-	freopen("B.out", "w", stdout);
+	file("B");
 
 	ios::sync_with_stdio(0);
 	cin.tie(0); cout.tie(0);

@@ -59,7 +59,7 @@ signed main()
 
 			int totr = sumr[i - 1][j - 1] + sumr[X][Y - 1] - sumr[i - 1][Y - 1] - sumr[X][j - 1];
 
-			if (totd + totr >= k) ++res;
+			 
 		}
 	}
 	cout << res << endl;
