@@ -16,11 +16,12 @@ using namespace std;
 
 const int N = 1e5 + 10;
 const int M = 2e5 + 10;
-const int inf = 0x3f3f3f3f;
+const int inf = 0x3f3f3f3f3f3f;
+const int B = N + 1;
 
 int n, m, res;
-int d1[N], dx[N];
-bool vis[N];
+int d1[N << 1], dx[N << 1];
+bool vis[N << 1];
 
 struct Edge { int v, w, nxt; };
 Edge e[M << 2]; int h[N], tot;
@@ -66,10 +67,11 @@ inline void solve()
 
 	for (int i = 1; i <= n; ++i) g[i][i] = 0;
 
-	for (int i = 1; i <= n; ++i)
-		for (int j = 1; j <= n; ++j)
-			for (int k = 1; k <= n; ++k)
-				g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
+	for (int k = 1; k <= n; ++k)
+		for (int i = 1; i <= n; ++i)
+			for (int j = 1; j <= n; ++j)
+				if (i != j && k != j)
+					g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
 
 	// for (int i = 1; i <= n; ++i)
 	// 	for (int j = 1; j <= n; ++j)
@@ -77,9 +79,12 @@ inline void solve()
 
 	for (int ed = 2; ed <= n; ++ed)
 	{
-		res = 0; res = inf;
+		res = min(g[1][ed], g[ed][1]);
 		for (int i = 1; i <= n; ++i)
-			res = min(res, g[1][i] + g[ed][i]);
+		{
+			if (i == ed) continue;
+			res = min({ res, g[1][i] + g[ed][i], g[1][i] + g[i][ed], g[ed][i] + g[i][1] });
+		}
 		cout << (res == inf ? -1 : res) << ' ';
 	}
 }
@@ -87,24 +92,26 @@ inline void solve()
 
 signed main()
 {
-	file("coin");
+	// file("coin");
 
 	ios::sync_with_stdio(0);
 	cin.tie(0); cout.tie(0);
 
 	cin >> n >> m;
 
-	if (n <= 200) Sub1::solve(), exit(0);
+	// if (n <= 200) Sub1::solve(), exit(0);
 
 	for (int i = 1, u, v, w; i <= m; ++i)
 	{
 		cin >> u >> v >> w;
 		add(u, v, w);
-		add(v, u, w);
+		add(v + B, u + B, w);
+		add(u, u + B, 0);
+		add(v, v + B, 0);
 	}
 
 	Dijkstra(1, d1);
 	for (int i = 2; i <= n; ++i)
-		cout << (d1[i] == inf ? -1 : d1[i]) << ' ';
+		cout << (d1[i + B] == inf ? -1 : d1[i + B]) << ' ';
 	return 0;
 }

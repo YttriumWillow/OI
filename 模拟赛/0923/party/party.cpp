@@ -20,7 +20,7 @@ int ans1, ans2;
 
 namespace Sub1
 {
-
+	
 }
 
 namespace Sub2
