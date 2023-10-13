@@ -8,8 +8,7 @@
 
 using namespace std;
 
-const int N = 1e5 + 500;
-const int Q = 1e5 + 500;
+const int N = 1e5 + 510;
 
 #include <cstring>
 namespace bufIO
@@ -53,16 +52,17 @@ namespace bufIO
 using namespace bufIO;
 
 int n, q;
-int a[N]; i64 b[N], len;
-int buc[N]; i64 res[Q];
-int blk, tot, bel[N];
+int a[N], b[N], len;
+int buc[N], bel[N]; i64 res[N];
+
+int blk, tot;
 
 struct Qry
 {
 	int l, r, id;
 	inline friend bool operator < (const Qry& x, const Qry& y)
-	{ return (bel[x.l] != bel[y.l]) ? (bel[x.l] < bel[y.l]) : (bel[x.r] < bel[y.r]); }
-} qry[Q];
+	{ return (bel[x.l] != bel[y.l]) ? (bel[x.l] < bel[y.l]) : (x.r < y.r); }
+} qry[N];
 
 inline void blocking()
 {
@@ -92,16 +92,16 @@ inline void solve()
 		cur = lst;
 		while (r < qry[i].r)
 		{
-			++r; ++buc[a[r]];
-			cur = max(cur, b[a[r]] * buc[a[r]]);
+			++buc[a[++r]];
+			cur = max(cur, 1ll * b[a[r]] * buc[a[r]]);
 		}
-		while (r > qry[i].r) { --buc[a[r]]; --r; }
+		while (r > qry[i].r) { --buc[a[r--]]; }
 		lst = cur;
 
 		while (l > qry[i].l)
 		{
-			--l; ++buc[a[l]];
-			cur = max(cur, b[a[l]] * buc[a[l]]);
+			++buc[a[--l]];
+			cur = max(cur, 1ll * b[a[l]] * buc[a[l]]);
 		}
 
 		res[qry[i].id] = cur;
@@ -127,10 +127,7 @@ signed main()
 		qry[i] = { l, r, i };
 	}
 
-	// blocking();
-	blk = (int)sqrt(n);
-	for (int i = 1; i <= n; ++i)
-		bel[i] = (i - 1) / blk + 1;
+	blocking();
 	sort(qry + 1, qry + q + 1);
 	solve();
 

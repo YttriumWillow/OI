@@ -1,117 +1,111 @@
-#include <bits/stdc++.h>
-
-#define i64 long long 
-#define endl '\n'
-#define qwq puts("fzy qwq ~");
-
-#define Query pair<int, int>
-#define lowbit(x) (x & -x)
-
+//12252024832524
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
 
-#include <cstring>
-namespace bufIO
+typedef long long i64;
+const int N = 100505;
+int n, q, a[N];
+i64 b[N], len;
+int buc[N];
+int bel[N];
+i64 ans[N];
+struct query
 {
-    const int _Pu = 1 << 16;
-    const int _d = 32;
-    char buf[_Pu], obuf[_Pu];
-    char *inl = buf + _Pu, *inr = buf + _Pu;
-    char *outl = obuf, *outr = obuf + _Pu - _d;
-    inline void flushin()
+    int l, r, id;
+    bool operator < (const query &px) const
     {
-        memmove(buf, inl, inr - inl);
-        int rlen = fread(buf + (inr - inl), 1, inl - buf, stdin);
-        if (inl - rlen > buf) { buf[inr - inl + rlen] = EOF; }
-        inl = buf;
+        if (bel[l] != bel[px.l]) return bel[l] < bel[px.l];
+        return r < px.r;
     }
-    inline void flushout() { fwrite(obuf, outl - obuf, 1, stdout), outl = obuf; }
-    template <typename _Tp>
-    inline void read(_Tp &x)
-    {
-        if (inl + _d > inr) { flushin(); }
-        int isne = 0;
-        for (; !isdigit(*inl); ++inl) { isne = (*inl == '-'); }
-        x = (*inl++ - '0');
-        for (; isdigit(*inl); ++inl) { x = x * 10 + (*inl - '0'); }
-        if (isne) { x = -x; }
-    }
-    template <typename _Tp>
-    inline void writeln(_Tp x, char end = '\n')
-    {
-        if (outl > outr) { flushout(); }
-        if (x < 0) { *outl++ = '-'; x = -x; }
-        char sta[20]; char *top = sta;
-        do { *top++ = (x % 10) + '0'; x /= 10; } while (x);
-        do { *outl++ = *--top; } while (top != sta);
-        (*outl++) = end;
-    }
-    template<typename _Tp, typename ...Args>
-    inline void read(_Tp& x, Args& ...args) { read(x), read(args...); }
+} qry[N];
+
+int Read()
+{
+    int x = 0, f = 1; char c = getchar();
+    while (c > '9' || c < '0') {if (c == '-')f = -1; c = getchar();}
+    while (c >= '0' && c <= '9') {x = (x * 10) + (c ^ 48); c = getchar();}
+    return x * f;
 }
-using namespace bufIO;
-
-const int N = 1e5 + 10;
-const int M = 5e5 + 10;
-const int Q = 5e5 + 10;
-
-struct Edge { int v; i64 w; int nxt; };
-Edge e[M << 1]; int h[N], tot;
-inline void add(int u, int v, i64& w)
-{ e[++tot] = { v, w, h[u] }; h[u] = tot; }
-
-int n, m, q;
-int u, v; i64 V, w;
-int col[N]; bool res[Q];
-
-Query qry[Q];
-
-inline void bfs(int s, i64& pre)
+void Put1(i64 x)
 {
-    queue<int> q;
-    q.push(s); col[s] = s;
-    while (!q.empty())
-    {
-        int u = q.front(); q.pop();
-        for (int i = h[u]; i; i = e[i].nxt)
-        {
-            int v = e[i].v; i64 w = e[i].w;
-            if (!col[v] && (pre & w) == pre)
-                q.push(v), col[v] = s;
-        }
-    }
+    if (x > 9) Put1(x / 10);
+    putchar(x % 10 ^ 48);
+}
+void Put(i64 x)
+{
+    if (x < 0) putchar('-'), x = -x;
+    Put1(x);
 }
 
-inline void bitchecker(i64 pre)
+int main()
 {
-    fill(col + 1, col + n + 5, 0);
+//  freopen(".in","r",stdin);
+//  freopen(".out","w",stdout);
+    n = Read();
+    q = Read();
+
+    for (int i = 1; i <= n; ++ i)
+        a[i] = Read(), b[i] = a[i];
+    sort(b + 1, b + n + 1);
+    len = unique(b + 1, b + n + 1) - b - 1;
     for (int i = 1; i <= n; ++i)
-        if (!col[i]) bfs(i, pre);
-    for (int i = 1; i <= q; ++i)
-        res[i] = res[i] || (col[qry[i].first] == col[qry[i].second]);
-}
+        a[i] = lower_bound(b + 1, b + len + 1, a[i]) - b;
 
-signed main()
-{
-    read(n, m, q, V);
 
-    for (int i = 1; i <= m; ++i)
+    int blk = (int)sqrt(n);
+    for (int i = 1; i <= n; ++i)
+        bel[i] = (i - 1) / blk + 1;
+
+    for (int i = 1; i <= q; ++ i)
     {
-        read(u, v, w);
-        add(u, v, w);
-        add(v, u, w);
+        qry[i].l = Read();
+        qry[i].r = Read();
+        qry[i].id = i;
     }
+    sort(qry + 1, qry + q + 1);
 
-    for (int i = 1; i <= q; ++i)
-        read(qry[i].first, qry[i].second);
-
-    if (V != 0ll) //            (1 << 60ll)
-        for (i64 pre = V; pre < (1ll << 60); pre += lowbit(pre))
-            bitchecker(pre);
-    else
-        bitchecker(0);
-
-    for (int i = 1; i <= q; ++i)
-        puts(res[i] ? "Yes" : "No");
-
+    int l, r = 0;
+    i64 cur = 0, lst = 0;
+    for (int i = 1; i <= q; ++ i)
+    {
+        l = blk * bel[qry[i].l];//该块右端点
+        if (bel[qry[i].l] > bel[qry[i - 1].l])
+        {
+            for (int j = 1; j <= len; ++ j)
+                buc[j] = 0;
+            r = l - 1;
+            lst = cur = 0;
+        }
+        cur = lst;
+        while (r < qry[i].r)
+        {
+            r++;
+            buc[a[r]]++;
+            cur = max(cur, buc[a[r]] * b[a[r]]);
+        }
+        while (r > qry[i].r)
+        {
+            buc[a[r]]--;
+            r--;
+        }
+        lst = cur;
+        while (l > qry[i].l)
+        {
+            l--;
+            buc[a[l]]++;
+            cur = max(cur, buc[a[l]] * b[a[l]]);
+        }
+        ans[qry[i].id] = cur;
+        for (int j = blk * bel[qry[i].l] - 1; j >= l; -- j)
+            buc[a[j]]--;
+    }
+    for (int i = 1; i <= q; ++ i)
+    {
+        Put(ans[i]);
+        putchar('\n');
+    }
     return 0;
 }

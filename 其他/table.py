@@ -1,7 +1,11 @@
-n, k = [int(i) for i in input().split()]
-pos = 0
+from sympy import *
 
-for i in range(2, n + 1):
-    pos = (pos + k) % i
-    print(i, ":", pos + 1)
-print
+n = int(input())
+
+for T in range(n):
+    p = int(input())
+    res = list(sqrt_mod_iter(1, p))
+    res.remove(p - 1)
+    print(max(res))
+
+

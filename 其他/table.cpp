@@ -26,11 +26,27 @@ void GetPrime(longint n)
 	return;
 }
 
+int f[100];
+
 int main()
 {
-	GetPrime(10010);
-	cout << cnt << endl;
-	for (reg int i = 0; i <= cnt; ++i)
-		cout << Prime[i] << ',';
+	constexpr int N = 50;
+
+	for (int n = 3; n <= N; ++n)
+	{
+		// cerr << "n = " << n << endl;
+		for (int k = n - 2; k >= 0; --k)
+		{
+			// cerr << "k -> " << k * k << endl;
+			if ((1ll * k * k) % n == 1) { f[n] = k; break; }
+		}
+	}
+
+	for (int i = 1; i <= N; ++i)
+		cout << f[i] << ",\n"[i == N];
+
+	cout << "f[8] = " << f[8] << endl; // f[8] = 5
+	cout << "f[15] = " << f[15] << endl; // f[15] = 11
+
 	return 0;
 }

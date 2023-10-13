@@ -18,24 +18,20 @@ int main() {
 
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
-
-	int n, m, q, V, u, v;
+    
+	int n, m;
 	n = rnd(3, 1e5);
-	m = rnd(1, 5e5);
-	q = rnd(1, 5e5);
-	V = rnd(0, (1ll << 60) - 1);
-	u = 0, v = 0;
-	cout << n << ' ' << m << ' ' << q << ' ' << V << endl;
+	m = rnd(1, 1e5);
+	cout << n << ' ' << m << endl;
 
+	for (int i = 1; i <= n; ++i)
+	{
+		cout << rnd(1, 1e9) << endl;
+	}
 	for (int i = 1; i <= m; ++i)
 	{
-		while (u == v) tie(u, v) = make_pair(rnd(1, n), rnd(1, n));
-		cout << u << ' ' << v << ' ' << rnd(0, (1ll << 60) - 1) << endl;
-	}
-	for (int i = 1; i <= q; ++i)
-	{
-		while (u == v) tie(u, v) = make_pair(rnd(1, n), rnd(1, n));
-		cout << u << ' ' << v << endl;
+		int l = rnd(1, n);
+		cout << l << ' ' << l + rnd(1, n - l - 1) << endl;
 	}
 
     return 0;
