@@ -1,6 +1,10 @@
 # Data Generator 
 # Designed for OI problem data Generating
 
+# 使用参考：
+#   1. 将你编写的通过 testlib 实现的 Generator 放入本目录下的 gen.cpp (testlib 已经提供)
+# 
+
 import os
 import sys
 import time
@@ -9,6 +13,8 @@ import subprocess as subpcs
 import multiprocessing as mulpsc
 
 from math import *
+
+globalCompileOptions = ["-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456"]
 
 def WARNING(info):
     print("[WARNING]", time.strftime("[%H:%M:%S]", time.localtime()), info)
@@ -23,26 +29,32 @@ class Commander:
     def __init__(self, _mainProcess, *para):
         self.mainProcess = _mainProcess
         self.parameter = para
+    def getCmd(self):
+        return self.mainProcess + " " + " ".join(self.parameter)
     def perform(self):
-        cmd = self.mainProcess + " " + " ".join(self.parameter)
-        DEBUG(cmd)
-        runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE)
+        cmd = self.getCmd()
+        INFO("Performed a Command: " + cmd)
+        runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE, shell=True)
         return runResult.communicate()[0].decode("GBK")
 
 class ComplieCommander(Commander):
     fileName = ""
     def __init__(self, _fileName, *para):
         self.mainProcess = "g++"
+        self.fileName = _fileName
         basicLine = [_path + _fileName + ".cpp", "-o", _path + _fileName]
         basicLine.extend(para)
         self.parameter = basicLine
 
 class GeneratorCpp:
     fileName = ""
+    complieCmd = ""
     def __init__(self, _fileName):
-        self.filename = _fileName
-    def genToFile(Command):
-        Command.perform()
+        self.fileName = _fileName
+        self.complieCmd
+    def genToFile(self, *runpara):
+        compileCommander = ComplieCommander(self.fileName, globalCompileOptions)
+        
         pass
 
 class TestPoint:
@@ -66,9 +78,15 @@ class TestPoint:
 if __name__ == '__main__':
     path = current_dir = os.path.dirname(os.path.abspath(__file__))
     _path = path + "\\"
-    DEBUG(path)
+    INFO("Program start running on directory: " + path)
+    INFO("Subprocesses will run on directory: " + subpcs.Popen("chdir", stdout=subpcs.PIPE, shell=True).communicate()[0].decode("GBK")[0:-1])
     probname = path.split('\\')[-1]
-    # complieCommande = ComplieCommander(probname, "-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456")
-    checkPath = Commander("chdir")
-    INFO(checkPath.perform())
     
+    # complieCommand = ComplieCommander(probname, "-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456")
+    # checkPath = Commander("chdir")
+    # INFO(checkPath.perform())
+    
+
+    
+    INFO("Program Exited. Thanks for using. [QwQ]")
+   
