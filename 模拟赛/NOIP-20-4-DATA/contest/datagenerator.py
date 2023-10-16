@@ -164,7 +164,6 @@ def submitDataGroup(rng, args):
         
 
 if __name__ == '__main__':
-    # [!!!]修改一些基本信息请在 INIT() 函数内修改
     INIT()
     
     # 启动提示
@@ -180,8 +179,15 @@ if __name__ == '__main__':
     submitDataGroup([3, 6], "-n=1000 -m=1")
     submitDataGroup([7, 10], "-n=100000 -m=1")
     
-    submitDataGroup([11, 12], "-n=1000 -m=5")
-    submitDataGroup([13, 20], "-n=100000 -m=5")
+    submitDataGroup([11, 12], "-n=10 -m=2")
+    submitDataGroup([13, 14], "-n=1000 -m=2")
+    submitDataGroup([15, 20], "-n=100000 -m=2")
+    
+    submitDataGroup([21, 24], "-n=1000 -m=3")
+    submitDataGroup([25, 30], "-n=100000 -m=3")
+    
+    submitDataGroup([31, 32], "-n=10000 -m=4")
+    submitDataGroup([33, 40], "-n=100000 -m=4")
     
     # 启动生成队列
     # startRunningSequencial() # 顺序生成队列内数据点

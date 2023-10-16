@@ -18,4 +18,7 @@ InstallPython /quiet PrependPath=1 /passive
 echo.
 echo °²×°Íê±Ï
 echo.
+
+del InstallPython.exe
+
 pause
