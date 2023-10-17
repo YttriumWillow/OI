@@ -1,0 +1,198 @@
+files:
+  - time: 1695434746035.yml
+    name: V2rayA
+    url: https://rs.kxnn.eu.org/api/v1/client/subscribe?token=3f284b712e280fcc82716a10da4239b6
+    selected: []
+    interval: 24
+    subInfo:
+      upload: 22036875
+      download: 764893654
+      total: 107374182400
+    homeWeb: https://www.v2raya.eu.org
+  - time: 1696643594644.yml
+    name: w1770946466
+    url: https://sub.maoxiongnet.com/sub?target=clash&new_name=true&url=https%3A%2F%2Fraw.githubusercontent.com%2Fw1770946466%2FAuto_proxy%2Fmain%2FLong_term_subscription_num&insert=true&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online_Full_MultiMode.ini&filename=w1770946466&emoji=true&list=false&tfo=false&scv=false&fdn=true&sort=true&udp=false
+    selected:
+      - name: GLOBAL
+        now: 🔮 负载均衡
+      - name: Ⓜ️ 微软云盘
+        now: DIRECT
+      - name: Ⓜ️ 微软服务
+        now: DIRECT
+      - name: 🌍 国外媒体
+        now: 🚀 节点选择
+      - name: 🌏 国内媒体
+        now: DIRECT
+      - name: 🍃 应用净化
+        now: DIRECT
+      - name: 🍎 苹果服务
+        now: 🚀 节点选择
+      - name: 🎥 奈飞节点
+        now: 🇨🇳 「蛋挞云,流媒体全解锁」🇬🇧 GB 01
+      - name: 🎥 奈飞视频
+        now: 🎥 奈飞节点
+      - name: 🎮 游戏平台
+        now: DIRECT
+      - name: 🎯 全球直连
+        now: DIRECT
+      - name: 🎶 网易音乐
+        now: DIRECT
+      - name: 🐟 漏网之鱼
+        now: 🚀 节点选择
+      - name: 💬 OpenAi
+        now: 🚀 节点选择
+      - name: 📢 谷歌FCM
+        now: 🚀 节点选择
+      - name: 📲 电报消息
+        now: 🚀 节点选择
+      - name: 📹 油管视频
+        now: 🚀 节点选择
+      - name: 📺 哔哩哔哩
+        now: 🎯 全球直连
+      - name: 📺 巴哈姆特
+        now: 🇨🇳 台湾节点
+      - name: 🚀 手动切换
+        now: ""
+      - name: 🚀 节点选择
+        now: 🔮 负载均衡
+      - name: 🛑 广告拦截
+        now: REJECT
+    interval: 24
+    subInfo:
+      upload: 0
+      download: 1
+      total: 1
+    homeWeb: ""
+    cron: ""
+    headers: ""
+    mode: rule
+  - time: 1693365150726.yml
+    name: ripaojiedian
+    url: https://raw.github.com/ripaojiedian/freenode/main/clash#slbable
+    selected:
+      - name: GLOBAL
+        now: DIRECT
+      - name: Ⓜ️ 微软服务
+        now: 🎯 全球直连
+      - name: 🌍 国外媒体
+        now: 🚀 节点选择
+      - name: 🍃 应用净化
+        now: DIRECT
+      - name: 🍎 苹果服务
+        now: 🚀 节点选择
+      - name: 🎯 全球直连
+        now: DIRECT
+      - name: 🐟 漏网之鱼
+        now: 🚀 节点选择
+      - name: 📢 谷歌FCM
+        now: 🚀 节点选择
+      - name: 📲 电报信息
+        now: 🚀 节点选择
+      - name: 🚀 节点选择
+        now: ⚖️ 负载均衡-轮询
+      - name: 🛑 全球拦截
+        now: REJECT
+    interval: 1
+    subInfo: {}
+    homeWeb: ""
+    cron: ""
+    headers: ""
+  - time: 1693203079360.yml
+    name: NoMoreWalls
+    url: https://raw.github.com/peasoft/NoMoreWalls/master/list.yml
+    selected: []
+    interval: 1
+    subInfo: {}
+    homeWeb: ""
+    cron: ""
+    headers: ""
+  - time: 1696221724841.yml
+    name: FreeNodes
+    url: https://sub.maoxiongnet.com/sub?target=clash&new_name=true&url=https%3A%2F%2Fraw.githubusercontent.com%2Ffreenodes%2Ffreenodes%2Fmain%2Fclash_speed.yaml&insert=true&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online_Full_MultiMode.ini&filename=FreeNodes&emoji=true&list=false&tfo=false&scv=false&fdn=false&sort=false
+    selected:
+      - name: GLOBAL
+        now: DIRECT
+      - name: Ⓜ️ 微软云盘
+        now: DIRECT
+      - name: Ⓜ️ 微软服务
+        now: DIRECT
+      - name: 🌍 国外媒体
+        now: 🚀 节点选择
+      - name: 🌏 国内媒体
+        now: DIRECT
+      - name: 🍃 应用净化
+        now: DIRECT
+      - name: 🍎 苹果服务
+        now: 🚀 节点选择
+      - name: 🎥 奈飞节点
+        now: DIRECT
+      - name: 🎥 奈飞视频
+        now: 🎥 奈飞节点
+      - name: 🎮 游戏平台
+        now: DIRECT
+      - name: 🎯 全球直连
+        now: DIRECT
+      - name: 🎶 网易音乐
+        now: DIRECT
+      - name: 🐟 漏网之鱼
+        now: 🚀 节点选择
+      - name: 💬 OpenAi
+        now: 🚀 节点选择
+      - name: 📢 谷歌FCM
+        now: 🚀 节点选择
+      - name: 📲 电报消息
+        now: 🚀 节点选择
+      - name: 📹 油管视频
+        now: 🚀 节点选择
+      - name: 📺 哔哩哔哩
+        now: 🎯 全球直连
+      - name: 📺 巴哈姆特
+        now: 🇨🇳 台湾节点
+      - name: 🚀 手动切换
+        now: 🇭🇰 -HK-001
+      - name: 🚀 节点选择
+        now: 🔮 负载均衡
+      - name: 🛑 广告拦截
+        now: REJECT
+    interval: 24
+    subInfo: {}
+    homeWeb: ""
+    cron: ""
+    headers: ""
+  - time: 1683808754753.yml
+    name: anaer
+    url: https://raw.github.com/anaer/Sub/main/clash.yaml
+    interval: 1
+    subInfo: {}
+    homeWeb: ""
+    cron: ""
+    headers: ""
+    selected:
+      - name: DEBUG
+        now: LOAD-BALANCE
+      - name: GLOBAL
+        now: DIRECT
+      - name: PROXY
+        now: LOAD-BALANCE
+      - name: SELECT
+        now: 新加坡 001
+    mode: rule
+  - time: 1696220859438.yml
+    name: freeclash
+    url: https://tt.vg/freeclash#slbable
+    selected: []
+    interval: 24
+    subInfo: {}
+    homeWeb: ""
+    cron: ""
+    headers: ""
+  - time: 1696220879371.yml
+    name: getNode
+    url: https://raw.github.com/a2470982985/getNode/main/clash.yaml#slbable
+    selected: []
+    interval: 0
+    subInfo: {}
+    homeWeb: ""
+    cron: ""
+    headers: ""
+index: 2
