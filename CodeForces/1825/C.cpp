@@ -60,7 +60,7 @@ int main()
 		}
 		sort(v.begin(), v.end());
 		auto pos = unique(v.begin(), v.end()); v.erase(pos, v.end());
-		cnt = v.size(); l = 
+		cnt = v.size(); l = 1;
 		cerr << cnt << ' ' << cnt1 << ' ' << cnt2 << endl;
 		cnt = min(m, cnt + cnt1);
 		cnt = min(m, cnt + cnt2);

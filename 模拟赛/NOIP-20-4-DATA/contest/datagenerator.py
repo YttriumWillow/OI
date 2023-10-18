@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import random
 import threading as thr
 import subprocess as subpcs
 import multiprocessing as mulpsc
@@ -66,8 +67,25 @@ class TestPoint:                    # 测试点, 传入测试点编号和数据�
     def genCase(self):    # 调用数据生成器，生成一组样例 {fileName}_{case}.in 和 {fileName}_{case}.ans
         self.genData()
         self.genAnswer()
-    def checkValidity():        # [Unfixed Feature]比较已经生成的答案和其他校验代码生成的答案
-        return True
+    def genInvalid(self):
+        startTick = time.time()
+        cmd = "invsol < " + probName + str(self.case) + ".in" + " > " + probName + str(self.case) + ".out"
+        runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE, shell=True)
+        endTick = time.time()
+        useTime = float(endTick - startTick) * 1000.0
+        
+        INFO("Checked #" + str(self.case) + " Time: {:.1f} ms".format(useTime))
+        response = runResult.communicate()[0].decode("GBK")
+        if response != "":
+            WARNING("#" + str(self.case) + "'s check program has found an unexpected response: " + response)
+        return useTime
+    def checkValidity(self):        # [Unfixed Feature]比较已经生成的答案和其他校验代码生成的答案
+        self.genCase()
+        self.genInvalid()
+        runResult = subpcs.Popen("fc " + probName + str(self.case) + ".out " + probName + str(self.case) + ".ans", stdout=subpcs.PIPE, shell=True)
+        response = runResult.communicate()[0].decode("GBK")
+        return (not "未找到差异" in response)
+
 
 def WARNING(info, end="\n"):
     print("[WARNING]", time.strftime("[%H:%M:%S]", time.localtime()), info, end=end)
@@ -81,7 +99,7 @@ def INTERACT(info):
     return input("[INTERACT] " + str(time.strftime("[%H:%M:%S]", time.localtime())) + " " + info)
 
 def INIT():
-    global path, _path, probName, threadnumber
+    global path, _path, probName, threadnumber, caseQueue
     
     path = os.path.dirname(os.path.abspath(__file__))
     _path = path + "\\"
@@ -90,8 +108,11 @@ def INIT():
     
     ComplieCommander(probName, "-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456").perform()
     ComplieCommander("gen", "-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456").perform()
+    if os.path.exists(_path + "invsol.cpp"):
+        ComplieCommander("invsol", "-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456").perform()
     
     threadnumber = int(mulpsc.cpu_count() / 2)
+    caseQueue = []
     x = INTERACT("Specify threads number here(default is half of CPU threads[" + str(threadnumber) + "]): ")
     if x != "":
         threadnumber = int(x)
@@ -133,9 +154,10 @@ def getTask():
 def startRunningSequencial():
     global caseQueue
     for i in caseQueue:
-        i.genCase()       
+        i.genCase()     
+    caseQueue = []  
 def startRunningThreads():
-    global queueLen, currentPoint, threads
+    global queueLen, currentPoint, threads, caseQueue
     
     queueLen = len(caseQueue)
     currentPoint = -1
@@ -149,8 +171,19 @@ def startRunningThreads():
     
     for i in range(threadnumber):
         threads[i].join()
-
-def submitDataGroup(rng, args):
+    
+    caseQueue = []
+def startHack(case, args):
+    seed = case
+    while True:
+        validity = TestPoint(case, args+caseHash(seed)).checkValidity()
+        if validity == False:
+            break
+        seed += random.randint(1, 100)
+    INFO("invalid sol can be hacked by args: " + args+caseHash(seed))
+def startHackThreads():
+    pass
+def submitGroupData(rng, args):
     global caseQueue
     L, R = 0, 0
     if isinstance(rng, int):
@@ -161,7 +194,7 @@ def submitDataGroup(rng, args):
         ERROR("TestCase range shoule be a int or list/tuple like [L, R]/(L, R).")
     for TestCase in range(L, R + 1):
         caseQueue.append( TestPoint(TestCase, args + caseHash(TestCase)) )
-        
+
 
 if __name__ == '__main__':
     INIT()
@@ -172,26 +205,25 @@ if __name__ == '__main__':
     
     # Gen Your Data Here ↓
     
-    global caseQueue
-    caseQueue = []
+    # submitGroupData([1, 2], "-n=10 -m=1")
+    # submitGroupData([3, 6], "-n=1000 -m=1")
+    # submitGroupData([7, 10], "-n=100000 -m=1")
     
-    submitDataGroup([1, 2], "-n=10 -m=1")
-    submitDataGroup([3, 6], "-n=1000 -m=1")
-    submitDataGroup([7, 10], "-n=100000 -m=1")
+    # submitGroupData([11, 12], "-n=10 -m=2")
+    # submitGroupData([13, 14], "-n=1000 -m=2")
+    # submitGroupData([15, 20], "-n=100000 -m=2")
     
-    submitDataGroup([11, 12], "-n=10 -m=2")
-    submitDataGroup([13, 14], "-n=1000 -m=2")
-    submitDataGroup([15, 20], "-n=100000 -m=2")
+    # submitGroupData([21, 24], "-n=1000 -m=3")
+    # submitGroupData([25, 30], "-n=100000 -m=3")
     
-    submitDataGroup([21, 24], "-n=1000 -m=3")
-    submitDataGroup([25, 30], "-n=100000 -m=3")
-    
-    submitDataGroup([31, 32], "-n=10000 -m=4")
-    submitDataGroup([33, 40], "-n=100000 -m=4")
+    # submitGroupData([31, 32], "-n=10000 -m=4")
+    # submitGroupData([33, 40], "-n=100000 -m=4")
     
     # 启动生成队列
     # startRunningSequencial() # 顺序生成队列内数据点
-    startRunningThreads()    # 多线程生成队列内数据点
+    # startRunningThreads()    # 多线程生成队列内数据点
+    
+    # Hack Functions    
     
     # 结束提示
     INFO("Program Exited. Thanks for using. [QwQ]")
