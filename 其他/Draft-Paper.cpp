@@ -1,173 +1,76 @@
 #include <iostream>
-#include <cstring>
-#include <algorithm>
 
-#define rep(i, a, b) for(int i = (a); i <= (b); i++)
-#define per(i, a, b) for(int i = (a); i >= (b); i--)
+#define i64 long long
+#define endl '\n'
+#define qwq puts("fzy qwq ~");
+#define rep(x, a, b) for (int x = (a); x <= (b); ++x)
+
+#define file(prob) freopen(prob".in", "r", stdin), freopen(prob".out", "w", stdout);
 
 using namespace std;
 
-const int N = 1e6 + 10;
+const int N = 1e5 + 10;
 
-char a[N];
-char b[N];
-bool tag[N];
-int n, m;
-
-int  solve(char k, char b)
+template<typename Tp>
+struct BIT
 {
-    tag[1] = tag[n] = false;
-
-    a[1] = k, a[n] = b;
-    int sum = 0;
-
-    rep(i, 1, n) if(tag[i]) a[i] = '0';
-    rep(i, 1, n - 1) if(a[i] != a[i + 1]) sum++;    
-
-    int tmp = (sum & 1) ^ (m & 1);
-    if(tmp)  { return -1;}
-
-    if(sum > m)
+    #define N 500010
+    #define lowbit(x) (x & -x)
+    Tp t1[N] = { 0 };
+    Tp t2[N] = { 0 };
+    int len = 0;
+    inline void init(int n) { len = n; }
+    inline void add(Tp x, Tp v)
     {
-        bool f = true;
-        int l, r;
-        per(i, n - 1, 1)
-        {
-            if(sum == m) break; 
-
-            if(f && tag[i])
-            {
-                f = false;
-                r = i;
-            }
-
-            if(!tag[i] && !f)
-            {
-                f = true;
-                l = i + 1;
-
-                if(a[r + 1] == '1' && a[l - 1] == '1')
-                {
-                    sum -= 2;
-                    rep(i, l, r) a[i] = '1'; 
-                }
-            }
-        }
+        for (reg int i = x; i <= len; i += lowbit(i))
+            t1[i] += v, t2[i] += x * v;
     }
-    else
+    inline Tp query(Tp x)
     {
-        per(i, n - 1, 2)
-        {
-            if(sum == m) break;
-
-            if(tag[i])
-            {
-                if(a[i + 1] == a[i] && a[i - 1] == a[i]) 
-                {
-                    a[i] = '1';
-                    sum += 2;
-                }
-            }
-        }
+        reg Tp res = 0;
+        for (reg int i = x; i; i -= lowbit(i))
+            res += (x + 1) * t1[i] - t2[i];
+        return res;
     }
+    inline Tp range(Tp l, Tp r) { return query(r) - query(l - 1); }
+    inline void modify(Tp l, Tp r, Tp x) { add(l, x); add(r + 1, -x); }
+};
 
-    if(sum != m) return -1;
-    return 1;
+namespace BIT
+{
+#define lowbit(x) ((x) & (-x))
+int len = 0;
+i64 t1[N], t2[N];
+inline void add(int x, i64 v)
+{
+    for (int i = x; i <= len; i += lowbit(i))
+        t1[i] += v, t2[i] += x * v;
+}
+inline i64 sum(int x)
+{
+    i64 res = 0;
+    for (int i = x; i; i -= lowbit(i))
+        res += (x + 1) * t1[i] - t2[i];
+    return res;
+}
 }
 
 int main()
 {
+    file("seg");
 
-    int T;
-    cin >> T;
-    while(T--)
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    cin >> n >> q; t.init(n);
+
+    rep (i, 1, n) cin >> a[i];
+
+    while (q--)
     {
-        cin >> n >> m;
 
-        cin >> a + 1;
-
-        rep(i, 1, n) 
-        {
-            if(a[i] == '?') tag[i] = true;
-            else tag[i] = 0;
-        }
-
-        for(int i = 1; i <= n; i++) b[i] = a[i];
-
-        if(a[1] == '?' && a[n] == '?')
-        {
-            int t = solve('0', '0');
-            if(t > 0) 
-            {
-                cout << a + 1 << '\n';
-                continue;
-            }
-            for(int i = 1; i <= n; i++) a[i] = b[i];
-            t = solve('0', '1');
-            if(t > 0) 
-            {
-                cout << a + 1 << '\n';
-                continue;
-            }
-            for(int i =1; i <= n; i++) a[i] = b[i];
-            t = solve('1', '0');
-            if(t > 0) 
-            {
-                cout << a + 1 << '\n';
-                continue;
-            }
-            for(int i =1; i <= n; i++) a[i] = b[i];
-            t = solve('1', '1');
-            if(t > 0) 
-            {
-                cout << a + 1 << '\n';
-                continue;
-            }
-            puts("Impossible");
-            continue;
-        }
-
-        if(a[1] == '?')
-        {
-            int t = solve('0', a[n]);
-            if(t > 0) 
-            {
-                cout << a + 1 << '\n';
-                continue;
-            }
-            for(int i =1; i <= n; i++) a[i] = b[i];
-            t = solve('1', a[n]);
-            if(t > 0) 
-            {
-                cout << a + 1 << '\n';
-                continue;
-            }
-            puts("Impossible");
-            continue;
-        }
-
-        if(a[n] == '?')
-        {
-            int t = solve(a[1], '0');
-            if(t > 0) 
-            {
-                cout << a + 1 << '\n';
-                continue;
-            }
-            for(int i = 1; i <= n; i++) a[i] = b[i];
-            t = solve(a[1], '1');
-            if(t > 0) 
-            {
-                cout << a + 1 << '\n';
-                continue;
-            }
-            puts("Impossible");
-            continue;
-        }
-
-        int t = solve(a[1], a[n]);
-        if(t < 0) puts("Impossible");
-        else cout << a + 1 << '\n';
     }
 
+
+    return 0;
 }
