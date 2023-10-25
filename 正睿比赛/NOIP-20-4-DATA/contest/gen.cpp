@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 
     cout << n << ' ' << m << endl;
 
-    rep(T, 1, m)
+    rep (T, 1, m)
     {
         int k = rnd.next(1, n);
 
