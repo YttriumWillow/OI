@@ -1,10 +1,14 @@
-from random import *
+import clipboard
 
-while input() != "exit":
-    n = 10
-    m = randint(5, 8)
-    print(n, m)
+while True:
+    try: s = input()
+    except: break
+    l = ["$\\def\\U{\\underset} \\def\\T{\\texttt}"]
+    for i in range(len(s)):
+        l.append("\\U{" + str(i+1) + "}{\\T{" + s[i] + "}}")
+    l.append("$")
+    # print(l)
+    res = "".join(l)
+    print(res)
+    clipboard.copy(res)
     
-    for i in range(10):
-        print(choice(["?", "0", "1"]), end = "")
-

@@ -1,16 +1,14 @@
 #include <iostream>
 #include <cstring>
-#include <queue>
 
+#define int long long
 #define i64 long long
 #define endl '\n'
 #define qwq puts("fzy qwq ~");
 #define rep(i, l, r) for (int i = (l); i <= (r); ++i)
-#define value first
-#define index second
-#define Pii pair<int, int>
 
 using namespace std;
+
 namespace bufIO
 {
     const int _Pu = 1 << 16;
@@ -50,60 +48,69 @@ namespace bufIO
     inline void read(_Tp& x, Args& ...args) { read(x), read(args...); }
 } using namespace bufIO;
 
-const int N = 1e6 + 5;
+namespace MillerRabin
+{
+// quick power
+inline i64 qpow(i64 a, i64 n, const i64 P)
+{
+	i64 res = 1;
+	do {
+		if (n & 1) res = res * a % P;
+		a = a * a % P;
+	} while (n >>= 1);
+	return res;
+}
+inline bool isprime(i64 n)
+{
+	if (n < 3) return n == 2;
+	if ((n & 1) == 0)  return false;
+	static const i64 A[] = { 2, 325, 9375, 28178, 450775, 9780504, 1795265022 };
+	i64 t = n - 1, h = 0;
+	h = __builtin_ctz(t); t >>= h;
+	for (i64 a : A)
+	{
+		a %= n;
+		if (a <= 1) continue;
+		i64 v = qpow(a, t, n);
+		if (v == 1 || v == n - 1) continue;
+		for (int i = 1; i <= h; i++)
+		{
+			v = v * v % n;
+			if (v == n - 1 && i != h) { v = 1; break; }
+			if (v == 1) return false;
+		}
+		if (v != 1) return false;
+	}
+	return true;
+}
+} using namespace MillerRabin;
 
-int n, k, x, y;
-int a[N], eat[N], kll[N];
-int res, cnt;
-pair<i64, int> v[N];
-bool sfe[N], del[N << 1];
+const int N = 1e5 + 10;
+int T, n, k;
+
+inline int calc(int n)
+{
+	if (n == 0) return 0;
+	if (n == 1) return (k - 1) * (k - 1);
+	for (int p = n; p; --p)
+		if (isprime(p))
+			return max(p * (k - 1) * (k - 1), (p - k) * (p - k)) + calc(n - p);	
+	return 0;
+}
 
 inline void solve()
 {
-    priority_queue<Pii, vector<Pii>, less<Pii>   > Qmax(v + 1, v + n + 1);
-    priority_queue<Pii, vector<Pii>, greater<Pii>> Qmin(v + 1, v + n + 1);
-
-    res = n - 1; cnt = n;
-    fill(sfe, sfe + n + 1, 0);
-    fill(del, del + n + n + 1, 0);
-
-    rep (i, 0, n - 2)
-    {
-        while (del[Qmax.top().index]) Qmax.pop();
-        while (del[Qmin.top().index]) Qmin.pop();
-
-        i64 vmax = Qmax.top().value, vmin = Qmin.top().value;
-        kll[i] = vmin & 0xfffff; eat[i] = vmax & 0xfffff;
-
-        Pii cur = { vmax - vmin + kll[i], ++cnt };
-        del[Qmax.top().index] = del[Qmin.top().index] = 1;
-
-        Qmax.pop(); Qmax.push(cur);
-        Qmin.pop(); Qmin.push(cur);
-    }
-
-    for (int i = n - 2; ~i; --i)
-    {
-        if (sfe[eat[i]])
-        {
-            rep (j, i + 1, res - 1) sfe[kll[j]] = 0;
-            res = i;
-        }
-        else sfe[kll[i]] = 1;
-    } 
-    writeln(n - res);
+	read(n, k);
+	if (n == 1)
+		writeln((k - 1) * (k - 1));
+	else if (isprime(n))
+		writeln(max((n - k) * (n - k), n * (k - 1) * (k - 1)));
+	else
+		writeln(max(calc(n), n * (k - 1) * (k - 1)));
 }
 
-int main()
+signed main()
 {
-    int T; read(T, n); --T;
-    rep (i, 1, n) { read(a[i]); v[i] = { (i64)a[i] << 20 | i, i }; }
-    solve();
-    while (T--)
-    {
-        read(k);
-        while (k--) { read(x, y), a[x] = y, v[x] = { (i64)y << 20 | x, x }; }
-        solve();
-    }
-    return flushout(), 0;
+	int T; for (read(T); T--;) solve();
+	return flushout(), 0;
 }

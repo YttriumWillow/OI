@@ -54,13 +54,13 @@ class TestPoint:                    # 测试点, 传入测试点编号和数据�
             WARNING("#" + str(self.case) + "'s generator has found an unexpected response: " + response) 
     def genAnswer(self):        # 生成答案命令
         startTick = time.time()
-        cmd = "contest < " + probName + str(self.case) + ".in" + " > " + probName + str(self.case) + ".ans"
+        cmd = probName + " < " + probName + str(self.case) + ".in" + " > " + probName + str(self.case) + ".ans"
         runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE, shell=True)
         endTick = time.time()
         useTime = float(endTick - startTick) * 1000.0
         
-        INFO("Answered #" + str(self.case) + " Time: {:.1f} ms".format(useTime))
         response = runResult.communicate()[0].decode("GBK")
+        INFO("Answered #" + str(self.case) + " Time: {:.1f} ms".format(useTime))
         if response != "":
             WARNING("#" + str(self.case) + "'s answer program has found an unexpected response: " + response)
         return useTime
@@ -74,8 +74,8 @@ class TestPoint:                    # 测试点, 传入测试点编号和数据�
         endTick = time.time()
         useTime = float(endTick - startTick) * 1000.0
         
-        INFO("Checked #" + str(self.case) + " Time: {:.1f} ms".format(useTime))
         response = runResult.communicate()[0].decode("GBK")
+        INFO("Checked #" + str(self.case) + " Time: {:.1f} ms".format(useTime))
         if response != "":
             WARNING("#" + str(self.case) + "'s check program has found an unexpected response: " + response)
         return useTime
@@ -117,34 +117,35 @@ def INIT():
     if x != "":
         threadnumber = int(x)
 def caseHash(case):
-    return " -seed=" + str((case * 131 + 1027) % int(1e8 + 7))
+    return " -seed=" + str((case * 191 + 1145) % int(1e8 + 7))
 
-""" 弃用的方法
-def genData(case, args):
-    
-    INFO("Generated #" + str(case) + " data: " + args)
-    
-    cmd = "gen " + args + " > " + probName + str(case) + ".in"
-    runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE, shell=True)
-    response = runResult.communicate()[0].decode("GBK")
-    
-    if response != "":
-        WARNING("#" + str(TestCase) + "'s generator has found an unexpected response: " + response)
-def genAnswer(case):
-    
-    INFO("Generated #" + str(case) + " answer: ")
-    
-    cmd = "contest < " + probName + str(case) + ".in" + " > " + probName + str(case) + ".ans"
-    runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE, shell=True)
-    response = runResult.communicate()[0].decode("GBK")
-    
-    if response != "":
-        WARNING("#" + str(TestCase) + "'s answer program has found an unexpected response: " + response)
-def genTestcase(case, args):
-    genData(case, args)
-    genAnswer(case)
-    INFO("Testcase #" + str(case) + " Created.")
-"""
+# """
+# # 弃用的方法
+# def genData(case, args):
+#     
+    # INFO("Generated #" + str(case) + " data: " + args)
+#     
+    # cmd = "gen " + args + " > " + probName + str(case) + ".in"
+    # runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE, shell=True)
+    # response = runResult.communicate()[0].decode("GBK")
+#     
+    # if response != "":
+        # WARNING("#" + str(TestCase) + "'s generator has found an unexpected response: " + response)
+# def genAnswer(case):
+#     
+    # INFO("Generated #" + str(case) + " answer: ")
+#     
+    # cmd = "contest < " + probName + str(case) + ".in" + " > " + probName + str(case) + ".ans"
+    # runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE, shell=True)
+    # response = runResult.communicate()[0].decode("GBK")
+#     
+    # if response != "":
+        # WARNING("#" + str(TestCase) + "'s answer program has found an unexpected response: " + response)
+# def genTestcase(case, args):
+    # genData(case, args)
+    # genAnswer(case)
+    # INFO("Testcase #" + str(case) + " Created.")
+# """
 
 def getTask():
     global currentPoint, queueLen, caseQueue
@@ -205,23 +206,29 @@ if __name__ == '__main__':
     
     # Gen Your Data Here ↓
     
-    # submitGroupData([1, 2], "-n=10 -m=1")
-    # submitGroupData([3, 6], "-n=1000 -m=1")
-    # submitGroupData([7, 10], "-n=100000 -m=1")
+    # submitGroupData([1, 2], "-n=3 -V=10")
+    # submitGroupData([3, 6], "-n=10 -V=100")
+    # submitGroupData([7, 10], "-n=20 -V=1000")
     
-    # submitGroupData([11, 12], "-n=10 -m=2")
-    # submitGroupData([13, 14], "-n=1000 -m=2")
-    # submitGroupData([15, 20], "-n=100000 -m=2")
+    # submitGroupData([11, 12], "-n=50 -V=1000000000")
+    # submitGroupData([13, 14], "-n=80 -V=1000000000")
+    # submitGroupData([15, 20], "-n=100 -V=1000000000")
     
-    # submitGroupData([21, 24], "-n=1000 -m=3")
-    # submitGroupData([25, 30], "-n=100000 -m=3")
+    # submitGroupData([21, 24], "-n=1000 -V=1000000000")
+    # submitGroupData([25, 30], "-n=2000 -V=1000000000")
     
-    # submitGroupData([31, 32], "-n=10000 -m=4")
-    # submitGroupData([33, 40], "-n=100000 -m=4")
+    # submitGroupData([31, 34], "-n=50000 -V=1000000000")
+    # submitGroupData([35, 39], "-n=100000 -V=1000000000")
+    # submitGroupData([40, 40], "-n=200000 -V=1000000000")
+    
+    submitGroupData(1, "-n=20 -V=10")
+    submitGroupData(2, "-n=100 -V=1000000000")
+    submitGroupData(3, "-n=2000 -V=1000000000")
+    submitGroupData(4, "-n=200000 -V=1000000000")
     
     # 启动生成队列
     # startRunningSequencial() # 顺序生成队列内数据点
-    # startRunningThreads()    # 多线程生成队列内数据点
+    startRunningThreads()    # 多线程生成队列内数据点
     
     # Hack Functions    
     
