@@ -9,7 +9,7 @@ from threading import Thread
 
 from math import *
 
-globalCompileOptions = ["-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456"]
+globalCompileOptions = ["-std=c++14", "-O2", "-Wall", "-Wextra"]
     
 class Commander:                    # 命令执行器, 通过 Commader(mainProcess, *para) 构造, 传入 主程序 和 附加参数, 通过 perform 方法执行
     mainProcess = ""
@@ -106,8 +106,8 @@ def INIT():
     probName = os.path.split(path)[-1] # 默认题目名为文件夹名
     # probName =                    # 如果有需求请自己覆盖掉
     
-    ComplieCommander(probName, "-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456").perform()
-    ComplieCommander("gen", "-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456").perform()
+    ComplieCommander(probName, "-std=c++14", "-O2", "-Wall", "-Wextra").perform()
+    ComplieCommander("gen", "-std=c++14", "-O2", "-Wall", "-Wextra").perform()
     # if os.path.exists(_path + "invsol.cpp"):
     #     ComplieCommander("invsol", "-std=c++14", "-O2", "-Wall", "-Wextra", "-Wl,--stack=268435456").perform()
     
@@ -211,22 +211,6 @@ if __name__ == '__main__':
     # submitGroupData([1, 2], "-n=3 -V=10")
     # submitGroupData([3, 6], "-n=10 -V=100")
     # submitGroupData([7, 10], "-n=20 -V=1000")
-    
-    # submitGroupData([11, 12], "-n=50 -V=1000000000")
-    # submitGroupData([13, 14], "-n=80 -V=1000000000")
-    # submitGroupData([15, 20], "-n=100 -V=1000000000")
-    
-    # submitGroupData([21, 24], "-n=1000 -V=1000000000")
-    # submitGroupData([25, 30], "-n=2000 -V=1000000000")
-    
-    # submitGroupData([31, 34], "-n=50000 -V=1000000000")
-    # submitGroupData([35, 39], "-n=100000 -V=1000000000")
-    # submitGroupData([40, 40], "-n=200000 -V=1000000000")
-    
-    submitGroupData(1, "-n=20 -V=10")
-    submitGroupData(2, "-n=100 -V=1000000000")
-    submitGroupData(3, "-n=2000 -V=1000000000")
-    submitGroupData(4, "-n=200000 -V=1000000000")
     
     # 启动生成队列
     # startRunningSequencial() # 顺序生成队列内数据点
