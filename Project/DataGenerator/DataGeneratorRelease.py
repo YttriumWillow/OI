@@ -11,7 +11,7 @@ from math import *
 
 globalCompileOptions = ["-std=c++14", "-O2", "-Wall", "-Wextra"]
     
-class Commander:                    # 命令执行器, 通过 Commader(mainProcess, *para) 构造, 传入 主程序 和 附加参数, 通过 perform 方法执行
+class Commander: # 命令执行器, 通过 Commader(mainProcess, *para) 构造, 传入 主程序 和 附加参数, 通过 perform 方法执行
     mainProcess = ""
     parameter = []
     def __init__(self, _mainProcess, *para):
@@ -29,7 +29,7 @@ class Commander:                    # 命令执行器, 通过 Commader(mainProce
         INFO("Performed a Command: " + self.summary(cmd))
         runResult = subpcs.Popen(cmd, stdout=subpcs.PIPE, shell=True)
         return runResult.communicate()[0].decode("GBK")
-class ComplieCommander(Commander):  # 特定的编译命令执行器, 通过 ComplieCommander(fileName, *para) 构造, 编译 fileName.cpp 文件
+class ComplieCommander(Commander): # 特定的编译命令执行器, 通过 ComplieCommander(fileName, *para) 构造, 编译 fileName.cpp 文件
     fileName = ""
     def __init__(self, _fileName, *para):
         self.mainProcess = "g++"
@@ -38,7 +38,7 @@ class ComplieCommander(Commander):  # 特定的编译命令执行器, 通过 Com
         basicLine.extend(para)
         self.parameter = basicLine
 
-class TestPoint:                    # 测试点, 传入测试点编号和数据构造参数(若 Generator 可传参数), 通过以下提供的方法生成测试文件
+class TestPoint: # 测试点, 传入测试点编号和数据构造参数(若 Generator 可传参数), 通过以下提供的方法生成测试文件
     case = 0
     runArgs = ""
     def __init__(self, _case, _args):

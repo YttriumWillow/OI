@@ -1,84 +1,49 @@
-#include <bits/stdc++.h>
-
-#define int long long
-
-using namespace std;
-
-const int N = 5e5 + 10;
-const int mod = 998244353;
-
-int n, m;
-int a[N], cop[N], b[N];
-int sum, ans, lastans;
-deque<int> Q;
-
-int qpow(int a, int b)
+int len, m, L, R;
+string s;
+int a[maxn], cnt, f[20][20][20], nxt[maxn];
+int dfs(int n, int p, int sum, bool f1, int f2)
 {
-	int ans = 1, base = a;
-	while (b)
-	{
-		if (b & 1) ans = (ans * base) % mod;
-		base = (base * base) % mod, b >>= 1;
-	}
-	return ans % mod;
-}
-void msort(int s, int t)
-{
-	if (s == t) return ;
-	int mid = (s + t) >> 1;
-	msort(s, mid), msort(mid + 1, t);
-	int i = s, j = mid + 1, k = s;
-	while (i <= mid && j <= t)
-		if (cop[i] <= cop[j]) b[k++] = cop[i++];
-		else b[k++] = cop[j++], ans += mid - i + 1;
-	while (i <= mid) b[k] = cop[i], k++, i++;
-	while (j <= t) b[k] = cop[j], k++, j++;
-	for (int i = s; i <= t; i++) cop[i] = b[i];
-}
+	if (n == 0) { return sum; }
+	if (!f1 && !f2 && f[n][p][sum] != -1) return f[n][p][sum];
 
-bool f = 0;
-signed main()
-{
-	freopen("river.in", "r", stdin);
-	freopen("river.out", "w", stdout);
-	ios::sync_with_stdio(0);
-	cin.tie(0); cout.tie(0);
-	cin >> n >> m; sum = (n - 1) * n / 2;
-	for (int i = 1; i <= n; i++)
+	int m = (f1 ? a[n] : 9), res = 0;
+
+	for (int i = 0; i <= m; i++)
 	{
-		cin >> a[i]; cop[i] = a[i];
-		Q.push_back(a[i]);
-	}
-	for (int i = 1; i <= m; i++)
-	{
-		char t;
-		cin >> t;
-		if (t == '0')
+		int c1 = p, c2 = sum;
+		if (!f2 || i != 0)
 		{
-			if (f)
-			{
-				int x = Q.back(); Q.pop_back();
-				int az = n - x, an = x - 1;
-				Q.push_front(x);
-				ans = ans + az - an;
-			}
-			else
-			{
-				int x = Q.front(); Q.pop_front();
-				int az = n - x, an = x - 1;
-				Q.push_back(x);
-				ans = ans + az - an;
-			}
+			while (c1 && s[c1 + 1] - '0' != i) c1 = nxt[c1];
+			if (s[c1 + 1] - '0' == i) c1++;
+			if (c1 == len) c2++, c1 = nxt[c1];
 		}
-		else
-		{
-			ans = sum - ans;
-			f ^= 1;
-		}
-		// lastans = (lastans + ans * qpow(233, m - i) % mod) % mod;
-		// 傻波i 字怎么这么写
-		lastans = ((lastans * 233 % mod + ans) % mod + mod) % mod;
+		res += dfs(n - 1, c1, c2, f1 && i == m, f2 && i == 0);
 	}
-	cout << lastans << '\n';
-	return 0;
+	if (!f1 && !f2)
+		return f[n][p][sum] = res; 
+	return res;
+}
+int calc(int x)
+{
+	cnt = 0;
+	while (x)
+	{
+		a[++cnt] = x % 10;
+		x /= 10;
+	}
+	return dfs(cnt, 0, 0, 1, 1);
+}
+void solve()
+{
+	memset(f, -1, sizeof(f));
+	cin >> s >> L >> R;
+	len = sz(s); s = " " + s;
+	rep_(i, 0, len) nxt[i] = 0;
+	for (int i = 2, j = 0; i <= len; i++)
+	{
+		while (j && s[j + 1] != s[i]) j = nxt[j];
+		if (s[j + 1] == s[i]) j++;
+		nxt[i] = j;
+	}
+	cout << calc(R) - calc(L - 1) << endl;
 }
