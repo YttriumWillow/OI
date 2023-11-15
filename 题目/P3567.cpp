@@ -50,7 +50,7 @@ namespace bufIO
 }
 using namespace bufIO;
 
-const int N = 3e5 + 10;
+const int N = 5e5 + 10;
 
 int n, c, m, siz, a[N];
 struct Node { int m, cnt; } t[N * 3];
@@ -95,24 +95,24 @@ inline void qry(int l, int r)
         ss >>= 1; tt >>= 1;
     }
 }
-vector<int> v[10001];
+vector<int> v[N];
 
 int main()
 {
-    read(n, c);
+    read(n, m); c = n;
     rep (i, 1, n)
     {
         read(a[i]);
         v[a[i]].emplace_back(i);
     }
     build();
-    read(m); while (m--)
+    while (m--)
     {
         int l, r; read(l, r); qry(l, r);
         if (upper_bound(v[res.m].begin(), v[res.m].end(), r)
             - lower_bound(v[res.m].begin(), v[res.m].end(), l) <= ((r - l + 1) >> 1))
-            puts("no");
-        else printf("yes %d\n", res.m);
+            writeln(0);
+        else writeln(res.m);
     }
-    return 0;
+    return flushout(), 0;
 }
