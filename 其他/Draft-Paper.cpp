@@ -1,118 +1,96 @@
+#include<cstdio>
 #include <iostream>
-#include <cstring>
-#include <vector>
-#include <algorithm>
-
-#define i64 long long 
-#define endl '\n'
-#define qwq puts("fzy qwq ~");
-#define rep(i, l, r) for (int i = (l); i <= (r); ++i)
-
+#include<cstring>
+#include<algorithm>
+#define ll long long
 using namespace std;
-
-namespace bufIO
+const int M = 3e5 + 10;
+int n, H[M];
+int lmax[M], rmin[M];
+struct node
 {
-    const int _Pu = 1 << 16;
-    const int _d = 32;
-    char buf[_Pu], obuf[_Pu];
-    char *inl = buf + _Pu, *inr = buf + _Pu;
-    char *outl = obuf, *outr = obuf + _Pu - _d;
-    inline void flushin()
-    {
-        memmove(buf, inl, inr - inl);
-        int rlen = fread(buf + (inr - inl), 1, inl - buf, stdin);
-        if (inl - rlen > buf) { buf[inr - inl + rlen] = EOF; }
-        inl = buf;
-    }
-    inline void flushout() { fwrite(obuf, outl - obuf, 1, stdout), outl = obuf; }
-    template <typename _Tp>
-    inline void read(_Tp &x)
-    {
-        if (inl + _d > inr) { flushin(); }
-        int isne = 0;
-        for (; !isdigit(*inl); ++inl) { isne = (*inl == '-'); }
-        x = (*inl++ - '0');
-        for (; isdigit(*inl); ++inl) { x = x * 10 + (*inl - '0'); }
-        if (isne) { x = -x; }
-    }
-    template <typename _Tp>
-    inline void writeln(_Tp x, char end = '\n')
-    {
-        if (outl > outr) { flushout(); }
-        if (x < 0) { *outl++ = '-'; x = -x; }
-        char sta[20]; char *top = sta;
-        do { *top++ = (x % 10) + '0'; x /= 10; } while (x);
-        do { *outl++ = *--top; } while (top != sta);
-        (*outl++) = end;
-    }
-    template<typename _Tp, typename ...Args>
-    inline void read(_Tp& x, Args& ...args) { read(x), read(args...); }
-}
-using namespace bufIO;
-
-const int N = 3e5 + 10;
-
-int n, c, m, siz, a[N];
-struct Node { int m, cnt; } t[N * 3];
-inline Node merge(Node &a, Node &b)
+    int l, r, type, ck;
+    node() {}
+    node(int a, int b, int c, int d): l(a), r(b), type(c), ck(d) {}
+    bool operator <(const node &a)const {return ck < a.ck || (ck == a.ck && type > a.type);}
+} line[M << 1]; //因为每个矩形拆成两条线，所以空间开两倍
+int tot;
+int maxv[M << 2], lazy[M << 2];
+void pushup(int o)
 {
-    static Node res;
-    if (a.m == b.m) { res = { a.m, a.cnt + b.cnt }; }
-    else
-    {
-        if (a.cnt > b.cnt) res = {a.m, a.cnt - b.cnt};
-        else res = {b.m, b.cnt - a.cnt};
-    }
-    return res;
+    maxv[o] = max(maxv[o << 1], maxv[o << 1 | 1]);
 }
-inline void build()
+void pushdown(int o)
 {
-    siz = 1;
-    while (n + 2 > siz) siz <<= 1;
-    int l = siz + 1, r = siz + n;
-    for (int i = l; i <= r; ++i) t[i] = Node{a[i - siz], 1};
-    l >>= 1, r >>= 1;
-    while (l != r)
-    {
-        rep (i, l, r) t[i] = merge(t[i << 1], t[(i << 1) | 1]);
-        l >>= 1, r >>= 1;
-    }
-    t[1] = merge(t[2], t[3]);
+    if (!lazy[o]) return;
+    maxv[o << 1] += lazy[o];
+    maxv[o << 1 | 1] += lazy[o];
+    lazy[o << 1] += lazy[o];
+    lazy[o << 1 | 1] += lazy[o];
+    lazy[o] = 0;
 }
-Node res;
-inline void qry(int l, int r)
+void update(int o, int l, int r, int L, int R, int v)
 {
-    int ss = siz + l - 1, tt = siz + r + 1;
-    res = Node{0, 0};
-    while (ss || tt)
+    if (L <= l && r <= R)
     {
-        if ((ss >> 1) ^ (tt >> 1)) // s/2 != t/2
-        {
-            if (!(ss & 1)) res = merge(res, t[ss ^ 1]);
-            if (tt & 1) res = merge(res, t[tt ^ 1]);
-        }
-        else break;
-        ss >>= 1; tt >>= 1;
+        maxv[o] += v; lazy[o] += v;
+        return;
     }
+    int mid = (l + r) >> 1;
+    pushdown(o);
+    if (L <= mid) update(o << 1, l, mid, L, R, v);
+    if (R > mid) update(o << 1 | 1, mid + 1, r, L, R, v);
+    pushup(o);
 }
-vector<int> v[10001];
-
+//线段树区间加维护最大值
+#define lowbit(a) ((a)&(-(a)))
+ll bit[M];
+void add(int a, ll b)
+{
+    for (; a <= n; a += lowbit(a))bit[a] += b;
+}
+ll query(int a)
+{
+    int ans = 0;
+    for (; a; a -= lowbit(a))ans += bit[a];
+    return ans;
+}
+//树状数组求逆序对个数
+ll ans;//记得开long long
+void init()
+{
+    for (int i = n; i >= 1; i--)
+    {
+        ans += 1ll * query(H[i]);
+        add(H[i], 1);
+    }   rmin[n + 1] = n + 1;
+    for (int i = 1; i <= n; i++)lmax[i] = max(lmax[i - 1], H[i]);
+    for (int i = n; i >= 1; i--)rmin[i] = min(rmin[i + 1], H[i]);
+    //求取前缀最大和后缀最小
+    int l, r;
+    for (int i = 1; i <= n; i++)
+    {
+        //查询l,r，并加入扫描线
+        l = lower_bound(lmax + 1, lmax + n + 1, H[i]) - lmax;
+        r = lower_bound(rmin + 1, rmin + n + 1, H[i]) - rmin;
+        if (rmin[r] > H[i])--r;
+        if (l >= i || r <= i)continue; //排除不合法的情况
+        line[++tot] = node(l, i - 1, 1, i + 1);
+        line[++tot] = node(l, i - 1, -1, r + 1);
+    }
+    sort(line + 1, line + tot + 1); //按照y排序
+}
+ll maxdel;
 int main()
 {
-    read(n, c);
-    rep (i, 1, n)
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)scanf("%d", &H[i]);
+    init();
+    for (int i = 1; i <= tot; i++)
     {
-        read(a[i]);
-        v[a[i]].emplace_back(i);
+        update(1, 1, n, line[i].l, line[i].r, line[i].type);
+        if (maxv[1] > maxdel)maxdel = maxv[1]; //更新找最大
     }
-    build();
-    read(m); while (m--)
-    {
-        int l, r; read(l, r); qry(l, r);
-        if (upper_bound(v[res.m].begin(), v[res.m].end(), r)
-            - lower_bound(v[res.m].begin(), v[res.m].end(), l) <= ((r - l + 1) >> 1))
-            puts("no");
-        else printf("yes %d\n", res.m);
-    }
+    printf("%lld\n", 1 + 2 * maxdel); //输出答案
     return 0;
 }
