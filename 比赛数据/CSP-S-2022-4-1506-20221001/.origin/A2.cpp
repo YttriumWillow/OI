@@ -12,8 +12,8 @@ int check(int x) {
     return cnt;
 }
 signed main() {
-    freopen("kth.in", "r", stdin);
-    freopen("kth.out", "w", stdout);
+    // freopen("kth.in", "r", stdin);
+    // freopen("kth.out", "w", stdout);
     cin >> n >> m >> Q;
     while (Q--) {
         int k;

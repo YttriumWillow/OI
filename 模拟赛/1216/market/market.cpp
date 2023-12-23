@@ -17,16 +17,16 @@ const int M = 1e5 + 10;
 struct Shop
 {
 	int v, c, t; // U R right but v represents value
-				 // c represents time cost
+	// c represents time cost
 	friend bool operator < (const Shop& A, const Shop& B)
-		{ return A.t < B.t; }
+	{ return A.t < B.t; }
 } shop[N];
 
 struct Qry
 {
 	int t, m, id;
 	friend bool operator < (const Qry& A, const Qry& B)
-		{ return A.t < B.t; }
+	{ return A.t < B.t; }
 } qry[M];
 
 int n, m;
@@ -35,9 +35,9 @@ int f[N * N], res[M];
 inline void value(int cur)
 {
 	per (i, 90000, shop[cur].c)
-		f[i] = min(f[i], f[i - shop[cur].c] + shop[cur].v);
-    per (i, 90000, 1)
-    	f[i] = min(f[i], f[i + 1]);
+	f[i] = min(f[i], f[i - shop[cur].c] + shop[cur].v);
+	per (i, 90000, 1)
+	f[i] = min(f[i], f[i + 1]);
 }
 
 int main()
@@ -71,12 +71,12 @@ int main()
 	rep (i, 1, m)
 	{
 		while (shop[cur].t <= qry[i].t && cur <= n)
-            value(cur), ++cur;
-        res[qry[i].id] = upper_bound(f, f + 90001, qry[i].m) - f - 1;
+			value(cur), ++cur;
+		res[qry[i].id] = upper_bound(f, f + 90001, qry[i].m) - f - 1;
 	}
 
 	rep (i, 1, m)
-		cout << res[i] << endl;
+	cout << res[i] << endl;
 
 	return 0;
 }

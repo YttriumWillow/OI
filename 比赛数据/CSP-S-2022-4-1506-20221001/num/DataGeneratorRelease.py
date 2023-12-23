@@ -1,3 +1,4 @@
+from calendar import SUNDAY
 import os
 import sys
 import time
@@ -211,16 +212,27 @@ if __name__ == '__main__':
     
     # Gen Your Data Here ↓
     
-    submitGroupData(0, "-n=3 -Q=5 -V=9")
-    submitGroupData([1, 2], "-n=1000 -Q=100 -V=1000")
-    submitGroupData(3, "-n=3000 -Q=1 -V=3000")
-    submitGroupData(4, "-n=4000 -Q=1 -V=4000")
-    submitGroupData(5, "-n=5000 -Q=1 -V=5000")
-    submitGroupData(6, "-n=10000 -Q=100 -V=10000")
-    submitGroupData(7, "-n=100000 -Q=100 -V=100000")
-    submitGroupData(8, "-n=1000000 -Q=1 -V=1000000")
-    submitGroupData(9, "-n=1000000 -Q=100 -V=1000000")
-    submitGroupData(10, "-n=1000000000 -Q=100 -V=1000000000")
+    submitGroupData(0       , "-spc=0  -n=5    -Q=3        -X=20")
+    
+    submitGroupData(1       , "-spc=0  -n=5    -Q=3        -X=100")
+    submitGroupData(2       , "-spc=0  -n=5    -Q=3        -X=1000000")
+    
+    submitGroupData(3       , "-spc=0  -n=5    -Q=100000   -X=1000")
+    submitGroupData(4       , "-spc=0  -n=5    -Q=100000   -X=1000000")
+    
+    submitGroupData(5       , "-spc=1  -n=50   -Q=1000     -X=1000000")
+    submitGroupData([6, 8]  , "-spc=0  -n=50   -Q=1000     -X=1000000")
+    
+    submitGroupData(9       , "-spc=1027 -n=300 -Q=10000   -X=1000000")
+    submitGroupData([10, 12], "-spc=0  -n=300  -Q=10000    -X=1000000")
+    
+    submitGroupData(13      , "-spc=2  -n=1000 -Q=300000   -X=1000000")
+    submitGroupData(14      , "-spc=1  -n=1000 -Q=300000   -X=1000000")
+    submitGroupData(15      , "-spc=114514  -n=1000 -Q=300000   -X=1000000")
+    submitGroupData([16, 17], "-spc=0  -n=1000 -Q=300000   -X=1000000")
+    
+    submitGroupData(18      , "-spc=2  -n=1000 -Q=500000   -X=1000000")
+    submitGroupData([19, 20], "-spc=0  -n=1000 -Q=500000   -X=1000000")
     
     # 启动生成队列
     # startRunningSequencial() # 顺序生成队列内数据点
