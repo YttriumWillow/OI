@@ -111,6 +111,8 @@ int main(int argc, char* argv[])
     //     }
     // }
 
+    hack1();
+
     rep (T, 1, Q)
     {
         int i = rnd.next(1, n);
