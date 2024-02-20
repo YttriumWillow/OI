@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 
 #define i64 long long
 #define endl '\n'
@@ -11,13 +12,13 @@ int n, pos, res;
 
 int main()
 {
-	file("del");
+	// file("delete");win
 
 	ios::sync_with_stdio(0);
 	cin.tie(0); cout.tie(0);
 
 	string s; cin >> s;
-	n = s.size(); s = '#' + s;
+	n = s.size(); s = '#' + s + '#';
 
 	pos = 1;
 	while (pos != n)
@@ -41,4 +42,4 @@ int main()
 	cout << res << endl;
 
 	return 0;
-}	
+}
