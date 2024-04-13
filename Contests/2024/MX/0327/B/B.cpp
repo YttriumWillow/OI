@@ -6,7 +6,7 @@
 #define rep(i, l, r) for (int i = (l); i <= (r); ++i)
 #define file(prb) freopen(prb".in", "r", stdin); freopen(prb".out", "w", stdout);
 
-const int N = 2e5 + 10;
+const int N = 1e6 + 10;
 
 int n, siz[N];
 bool vis[N];

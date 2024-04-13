@@ -1,0 +1,1 @@
+{"name":"Local: B","url":"d:\\OI\\Contests\\2024\\MX\\0410\\B\\B.cpp","tests":[{"id":1712729015974,"input":"2 2\n1 10\n2 3\n2 4","output":"Yes\nNo"},{"id":1712731044483,"input":"","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Contests\\2024\\MX\\0410\\B\\B.cpp","group":"local","local":true}

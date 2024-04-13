@@ -88,7 +88,10 @@
         "thread": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "expected": "cpp",
+        "spanstream": "cpp",
+        "stdfloat": "cpp"
     },
     "python.analysis.autoImportCompletions": true,
     "python.analysis.typeCheckingMode": "basic"
