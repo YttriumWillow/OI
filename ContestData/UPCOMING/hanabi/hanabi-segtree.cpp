@@ -85,7 +85,7 @@ int main () {
             ret += p[k];
             k++;
             _t = true;
-        }
+        }       
         if (_t) seg.max0 (0, 0, 0, seg.siz);
     }
     seg.comp ();

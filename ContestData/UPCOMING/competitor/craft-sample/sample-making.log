@@ -1,0 +1,8 @@
+PS ~\craft> ./gen.exe -n=10 -v=20 > ./sample/craft1.in
+PS ~\craft> get-content ./sample/craft1.in | ./std-log > ./sample/craft1.ans
+PS ~\craft> ./gen -n=1027 -v=1007 > ./sample/craft2.in
+PS ~\craft> get-content ./sample/craft2.in | ./std-log > ./sample/craft2.ans
+PS ~\craft> ./gen -n=50000 -v=20 > ./sample/craft3.in
+PS ~\craft> get-content ./sample/craft3.in | ./std-log > ./sample/craft3.ans
+PS ~\craft> ./gen -n=50000 -v=4000 > ./sample/craft4.in
+PS ~\craft> get-content ./sample/craft4.in | ./std-log > ./sample/craft4.ans
