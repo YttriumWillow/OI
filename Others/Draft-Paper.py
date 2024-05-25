@@ -1,10 +1,19 @@
-from math import *
+S = "A person in need is a person indeed!"
+c1 = "person"
+c2 = "friend"
 
-W = int(input())
+l = 0; r = 0; res = ""
+i = len(c1) - 1
 
-if W <= 50:
-	F = 1.3 * W
-else:
-	F = 1.3 * 50 + 1.8 * (W - 50)
+while i < len(S):
+    ch = S[i - len(c1) + 1 : i + 1]
+    # print(i, "[" + str(i - len(c1) + 1) + "," + str(i + 1) + "):", ch)
+    if ch == c1:
+        # print("Changed")
+        res += S[l : i - len(c1) + 1] + c2
+        l = i + 1
+    i += 1
 
-print(F)
+res += S[l:]
+
+print(res)

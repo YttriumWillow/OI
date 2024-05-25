@@ -6,6 +6,7 @@
 #define v first
 #define id second
 #define rep(i, l, r) for (int i = (l); i <= r; ++i)
+#define file(prb) freopen(prb".in", "r", stdin); freopen(prb".out", "w", stdout);
 
 const int N = 1.5e5 + 5;
 
@@ -13,6 +14,7 @@ int n, a[N], b[N], c[N]; bool u[N];
 std::priority_queue<std::pair<int, int>> A, B, C;
 
 int main() {
+    file("craft");
     std::cin >> n;
     rep (i, 1, n) {
         std::cin >> a[i] >> b[i] >> c[i];

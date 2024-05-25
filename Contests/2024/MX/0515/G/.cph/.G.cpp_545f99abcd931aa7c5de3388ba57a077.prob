@@ -1,0 +1,1 @@
+{"name":"Local: G","url":"d:\\OI\\Contests\\2024\\MX\\0515\\G\\G.cpp","tests":[{"id":1715755968697,"input":"7","output":"40"},{"id":1715755973529,"input":"100","output":"4167"},{"id":1715755981831,"input":"12345678","output":"8766"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Contests\\2024\\MX\\0515\\G\\G.cpp","group":"local","local":true}
