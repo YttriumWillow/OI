@@ -1,19 +1,16 @@
-S = "A person in need is a person indeed!"
-c1 = "person"
-c2 = "friend"
+n = 13
+t = [[0] * n for _ in range(n)]
 
-l = 0; r = 0; res = ""
-i = len(c1) - 1
+for i in range(n):
+    t[i][0] = 1
 
-while i < len(S):
-    ch = S[i - len(c1) + 1 : i + 1]
-    # print(i, "[" + str(i - len(c1) + 1) + "," + str(i + 1) + "):", ch)
-    if ch == c1:
-        # print("Changed")
-        res += S[l : i - len(c1) + 1] + c2
-        l = i + 1
-    i += 1
+for i in range(1, n):
+    for j in range(1, n):
+        t[i][j] = t[i - 1][j - 1] + t[i - 1][j]
 
-res += S[l:]
-
-print(res)
+for i in range(n):
+    for j in range(n - i - 1):
+        print ("  ", end = "")
+    for j in range(i + 1):
+        print ("%-4d" % t[i][j], end="")
+    print()
