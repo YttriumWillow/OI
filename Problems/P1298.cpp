@@ -6,63 +6,43 @@
 // Created Time: 2023-05-06 08:09:14 
 
 #include <iostream>
-
-#include <algorithm>
+#include <cmath>
 
 #define i64 long long
-#define reg register
+#define rep(i, l, r) for(int i = l; i <= (r); ++i)
 #define qwq puts("fzy qwq ~");
-
-using namespace std;
-
-const double eps = 1e-13;
-
-int m, n;
-double R;
-
 #define dif(q) abs(q-R)
 
-struct Frac
-{
-	int u, d;
-	Frac() {}
-	Frac(int _u, int _d): u(_u), d(_d) {}
-	inline void reduct() { int tmp = __gcd(u, d); u /= tmp, d /= tmp; }
-	inline void rev() { swap(d, u); }
-	inline double real() { return u * 1.0 / d; }
-	inline void print() { reduct(); cout << u << '/' << d << endl; }
-};
+constexpr double eps = 1e-13;
+constexpr double F = 1.00000000;
 
-	// return (dif(l * 1.0 / i) < dif(r * 1.0 / i));
+int m, n; double r; bool fg;
 
-Frac ans = Frac(0, 1);
-
-int main()
-{
-	ios::sync_with_stdio(0);
-	cin.tie(0); cout.tie(0);
+int main(/*int argc, char const* argv[]*/) {
+	std::ios::sync_with_stdio(0);
+	std::cin.tie(0); std::cout.tie(0);
 	
-	cin >> m >> n >> R;
-	for (reg int i = 1; i <= n; ++i)
-	{
-		reg int l = 1, r = m;
-		while (r - l > 2)
-		{
-			reg int m1 = l + (r - l) / 3;
-			reg int m2 = r - (r - l) / 3;
-			if (dif(m1 * 1.0 / i) < dif(m2 * 1.0 / i))
-				r = m2;
-			else
-				l = m1;
+	std::cin >> m >> n >> r;
+
+	int a = 0, b = 1, c = 1, d = 0, resu = 0, resv = 1;
+	double dif = r; 
+
+	while (true) {
+		int e = a + c;
+		int f = b + d;
+		if (e > m or f > n) break;
+		double v = F * e / f - r;
+		if (std::fabs(v) == dif) {
+			fg = 1;
 		}
-		if ( dif(l * 10 / i) < dif(ans.real()) )
-			ans = Frac(l, i);
-		if ( dif(r * 1.0 / i) < dif(ans.real()) )
-			ans = Frac(r, i);
-		reg int mid = (l + r) >> 1;
-		if ( dif(mid * 1.0 / i) < dif(ans.real()) )
-			ans = Frac(mid, i);
+		if (std::fabs(v) < dif) {
+			resu = e, resv = f;
+			dif = std::fabs(v); fg = 0;
+			if (dif == 0) break;
+		}
+		(v < 0) ? (a = e, b = f) : (c = e, d = f);
 	}
-	ans.print();
-	return 0;
+
+	if (fg) std::cout << "TOO MANY" << '\n';
+	else std::cout << resu << '/' << resv << '\n';
 }

@@ -1,16 +1,3 @@
-/*
-    FileName: U_252570_星环防御工事.cpp
-        + randomhash: 59e4aa1bcd44c40e7cf224d8
-    Author: fengziyi
-        + base64: ZmVuZ3ppeWk=
-        + MD5: 9b0454ce8364ba54b28c8b9b7f9dafc7
-    Date: 2022/10/16 星期天
-    Time: 11:19:00
-        + Unix Timestamp(second): 1665890340
-    Encoding: UTF-8
-        + Encodeing Test: 哦，你使用了UTF-8编码。不是么？ovo
-*/
-
 #include <iostream>
 
 #define longint long long

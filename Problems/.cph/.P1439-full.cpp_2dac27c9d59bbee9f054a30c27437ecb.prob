@@ -1,0 +1,1 @@
+{"name":"Local: P1439-full","url":"d:\\OI\\Problems\\P1439-full.cpp","tests":[{"id":1720782530737,"input":"5 \n3 2 1 4 5\n1 2 3 4 5","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Problems\\P1439-full.cpp","group":"local","local":true}

@@ -1,0 +1,1 @@
+{"name":"Local: P1298","url":"d:\\OI\\Problems\\P1298.cpp","tests":[{"id":1723206279091,"input":"360 120\n3.1415926536","output":"355/113\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Problems\\P1298.cpp","group":"local","local":true}
