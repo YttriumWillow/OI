@@ -1,0 +1,1 @@
+{"name":"Local: SGT-func-24-8","url":"d:\\OI\\Templates\\SGT-func-24-8.cpp","tests":[{"id":1723554787704,"input":"7\n4 4\n8 7\n10 1\n5 5\n3 10\n1 2\n9 8","output":"37"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Templates\\SGT-func-24-8.cpp","group":"local","local":true}

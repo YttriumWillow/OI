@@ -1,0 +1,1 @@
+{"name":"Local: fa","url":"d:\\OI\\Contests\\2024\\LG\\0815\\fa.cpp","tests":[{"id":1723702567804,"input":"2\n2\n01\n30\n101001001010100110101101011110","output":"1\n75497471"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Contests\\2024\\LG\\0815\\fa.cpp","group":"local","local":true}
