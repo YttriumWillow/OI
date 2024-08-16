@@ -92,7 +92,5 @@
         "expected": "cpp",
         "spanstream": "cpp",
         "stdfloat": "cpp"
-    },
-    "python.analysis.autoImportCompletions": true,
-    "python.analysis.typeCheckingMode": "basic"
+    }
 }
