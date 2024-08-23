@@ -20,8 +20,6 @@ int main() {
     std::cin >> n >> S;
     rep (i, 1, n) std::cin >> a[i];
 
-    std::cerr << (8 % (-6)) << ' ' << ((-8) % (6));
-
     int l = 0, r = n;
 
     while (l < r) {
