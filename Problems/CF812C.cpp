@@ -5,28 +5,29 @@
 
 constexpr int N = 1e5 + 10;
 
-int n, S, a[N], v[N];
+int n, S, a[N], v[N], res;
 
 bool check(int c) {
-    rep (i, 1, n) v[i] = a[i] * c;
+    rep (i, 1, n) v[i] = a[i] + i * c;
     std::sort(v + 1, v + n + 1);
     int cnt = 1, val = 0;
-    while (cnt <= n and val <= S)
+    while (cnt <= c and val <= S)
         val += v[cnt++];
-    return val <= S and cnt >= c;
+    
+    return (val <= S) ? (res = val, 1) : 0;
 }
 
 int main() {
     std::cin >> n >> S;
     rep (i, 1, n) std::cin >> a[i];
 
-    int l = 0, r = n;
+    int l = 0, r = n + 1;
 
-    while (l < r) {
+    while (r - l > 1) {
         int mid = l + r >> 1;
-        check(mid) ? l = mid : r = mid - 1;
+        check(mid) ? l = mid : r = mid;
     }
 
-    std::cout << l << '\n';
+    std::cout << l << ' ' << res << '\n';
 
 }

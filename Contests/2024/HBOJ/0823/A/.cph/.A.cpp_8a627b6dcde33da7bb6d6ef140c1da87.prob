@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"d:\\OI\\Contests\\2024\\HBOJ\\0823\\A\\A.cpp","tests":[{"id":1724391211364,"input":"5\nnoip\nnonononononoip\noppopoopoppip\njasldjkasjdkladnolkasjdipjasdnodip\niiiiiiiiiiiiiiiii","output":"0\n0\n2\n1\n3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Contests\\2024\\HBOJ\\0823\\A\\A.cpp","group":"local","local":true}

@@ -1,0 +1,1 @@
+{"name":"Local: As","url":"d:\\OI\\ContestData\\NOIP-20-6\\As.cpp","tests":[{"id":1724047155737,"input":"5\nnoip\nnonononononoip\noppopoopoppip\njasldjkasjdkladnolkasjdipjasdnodip\niiiiiiiiiiiiiiiii","output":"0\n0\n2\n1\n3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\ContestData\\NOIP-20-6\\As.cpp","group":"local","local":true}

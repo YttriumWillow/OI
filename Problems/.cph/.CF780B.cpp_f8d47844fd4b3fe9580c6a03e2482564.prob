@@ -1,0 +1,1 @@
+{"name":"Local: CF780B","url":"d:\\OI\\Problems\\CF780B.cpp","tests":[{"id":1724036866518,"input":"3\n7 1 3\n1 2 1","output":"2.000000000000"},{"id":1724036875591,"input":"4\n5 10 3 2\n2 3 2 4","output":"1.400000000000"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Problems\\CF780B.cpp","group":"local","local":true}
