@@ -14,8 +14,5 @@ char s[100] = { '#','n','o','i','p' };
 
 int main(/*int argc, char const* argv[]*/) {
 
-    rep (i, 1, 15)
-        std::cout << (int)s[i] << " \n"[i == 15];
-
-
+    std::cout << (9>8>7>6);
 }
