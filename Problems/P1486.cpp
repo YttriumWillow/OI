@@ -107,10 +107,11 @@ int main()
 		switch (opt)
 		{
 		case 114514:
-			cout << faq << endl;
+			// cout << faq << endl;
+			// std::cout << reserved << '\m';
 			break;
 		case 1919810: 
-			++faq;
+			// ++faq;
 			break;
 		default:
 			qwq

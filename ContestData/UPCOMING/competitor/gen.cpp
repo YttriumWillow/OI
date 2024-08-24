@@ -22,4 +22,6 @@ int main(int argc, char* argv[]) {
         std::cout << rnd.next(0, lmt3) << '\n';
     }
 
+    std::cout << 
+
 }
