@@ -1,0 +1,1 @@
+{"name":"Local: P10990-gpt","url":"d:\\OI\\Problems\\P10990-gpt.py","tests":[{"id":1724662923102,"input":"6 6\n1 1 1 1\n2 3\n1 5 2 2\n2 4\n2 1\n2 3","output":"1\n2\n2\n1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Problems\\P10990-gpt.py","group":"local","local":true}
