@@ -3,16 +3,26 @@
 #define i64 long long
 #define rep(i, l, r) for (int i = (l); i <= r; ++i)
 
-std::vector<int> v = { 1, 1, 4, 5 };
-
-void work(std::vector<int> T) {
-    T[1] = { 1145 };
-}
-
-// char s[100] = "#noip";
-char s[100] = { '#','n','o','i','p' };
+class XHG {
+    std::multiset<int, std::greater<int>> S;
+public:
+    void insert(int v) {
+        S.insert(v);
+    }
+    void remove(int v) {
+        auto pos = S.find(v);
+        if (pos != S.end()) S.erase(pos);
+    }
+    int max() {
+        return *S.begin();
+    }
+};
 
 int main(/*int argc, char const* argv[]*/) {
-
-    std::cout << (9>8>7>6);
+    XHG S;
+    S.insert(1);
+    S.insert(2);
+    S.insert(3);
+    S.insert(4);
+    std::cout << S.max() << '\n';
 }

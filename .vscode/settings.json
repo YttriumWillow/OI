@@ -92,5 +92,6 @@
         "expected": "cpp",
         "spanstream": "cpp",
         "stdfloat": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }

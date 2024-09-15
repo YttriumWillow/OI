@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"d:\\OI\\Contests\\2024\\HBOJ\\0906\\A\\A.cpp","tests":[{"id":1725602463952,"input":"1 1","output":"Alice"},{"id":1725602482187,"input":"2 0","output":"Bob"},{"id":1725602493251,"input":"100 77","output":"Alice"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\OI\\Contests\\2024\\HBOJ\\0906\\A\\A.cpp","group":"local","local":true}
