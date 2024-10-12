@@ -37,7 +37,7 @@ private:
         if (tag[u]) {
             modifyTag(ls(u), tag[u]); modifyTag(rs(u), tag[u]);
             tag[u] = 0;
-        }
+        }   
     }
     void modifySet(int u, int l, int r, int pos, _Tp val) {
         if (l == r) return Min[u] = val, void();
