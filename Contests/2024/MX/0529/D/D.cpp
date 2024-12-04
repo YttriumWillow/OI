@@ -43,7 +43,7 @@ bool check(int mid) {
 
 
 int main(/*int argc, char const* argv[]*/) {
-    file("ride");
+    // file("ride");
 
     std::ios::sync_with_stdio(0);
     std::cin.tie(0); std::cout.tie(0);
@@ -56,11 +56,11 @@ int main(/*int argc, char const* argv[]*/) {
         add(u, v, w); add(v, u, w);
     }
 
-    int l = 0, r = 5e4;
-    while (l < r) {
-        int mid = (l + r) >> 1;
-        check(mid) ? r = mid : l = mid + 1;
-    }
+    // int l = 0, r = 5e4;
+    // while (l < r) {
+    //     int mid = (l + r) >> 1;
+    //     check(mid) ? r = mid : l = mid + 1;
+    // }
 
-    std::cout << l << '\n';
+    // std::cout << l << '\n';
 }
